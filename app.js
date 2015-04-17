@@ -6,7 +6,19 @@ $(document).ready( function() {
 		var tags = $(this).find("input[name='tags']").val();
 		getUnanswered(tags);
 	});
+
+		$('.inspiration-getter').submit( function(event){
+			// zero out results if previous search has run
+			$('.search-results').html('');
+			// get the value of the tags the user submitted
+			var topanswered_tags = $(this).find("input[name='topanswered_tags']").val();
+			getTopAnswerers(topanswered_tags);
+			console.log(result);
+	});
 });
+
+
+
 
 // this function takes the question object returned by StackOverflow 
 // and creates new result to be appended to DOM
@@ -66,12 +78,14 @@ var getUnanswered = function(tags) {
 								order: 'desc',
 								sort: 'creation'};
 	
+	console.log(request.tagged);
 	var result = $.ajax({
 		url: "http://api.stackexchange.com/2.2/questions/unanswered",
 		data: request,
 		dataType: "jsonp",
 		type: "GET",
 		})
+
 	.done(function(result){
 		var searchResults = showSearchResults(request.tagged, result.items.length);
 
@@ -80,6 +94,39 @@ var getUnanswered = function(tags) {
 		$.each(result.items, function(i, item) {
 			var question = showQuestion(item);
 			$('.results').append(question);
+		});
+	})
+	.fail(function(jqXHR, error, errorThrown){
+		var errorElem = showError(error);
+		$('.search-results').append(errorElem);
+	});
+};
+
+var getTopAnswerers = function(topanswered_tags) {
+	
+	// the parameters we need to pass in our request to StackOverflow's API
+	var request = 	{tag: topanswered_tags,
+								site: 'stackoverflow',};
+
+	console.log(topanswered_tags);
+	
+	var result = $.ajax({
+		url: "http://api.stackexchange.com//2.2/" + topanswered_tags + "/jquery/top-answerers",
+		data: request,
+		dataType: "jsonp",
+		type: "GET",
+		})
+
+
+
+	.done(function(result){
+		var searchResults = showSearchResults(request.tag, result.items.length);
+
+		$('.search-results').html(result);
+
+		$.each(searchResults.items, function(i, item) {
+			var question = showQuestion(item);
+			$('.search-results').append(question);
 		});
 	})
 	.fail(function(jqXHR, error, errorThrown){
