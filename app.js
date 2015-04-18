@@ -11,9 +11,8 @@ $(document).ready( function() {
 			// zero out results if previous search has run
 			$('.search-results').html('');
 			// get the value of the tags the user submitted
-			var topanswered_tags = $(this).find("input[name='topanswered_tags']").val();
+			var topanswered_tags = $(this).find("input[name='answerers']").val();
 			getTopAnswerers(topanswered_tags);
-			console.log(result);
 	});
 });
 
@@ -106,12 +105,14 @@ var getTopAnswerers = function(topanswered_tags) {
 	
 	// the parameters we need to pass in our request to StackOverflow's API
 	var request = 	{tag: topanswered_tags,
-								site: 'stackoverflow',};
+								site: 'stackoverflow',
+								key: 'lA7hf2aMgQUm5U6oUDu6ng(('
+							};
 
 	console.log(topanswered_tags);
 	
 	var result = $.ajax({
-		url: "http://api.stackexchange.com//2.2/" + topanswered_tags + "/jquery/top-answerers",
+		url: "http://api.stackexchange.com/2.2/tags/" + topanswered_tags + "/top-answerers/all_time",
 		data: request,
 		dataType: "jsonp",
 		type: "GET",
@@ -119,8 +120,12 @@ var getTopAnswerers = function(topanswered_tags) {
 
 
 
+
+
 	.done(function(result){
 		var searchResults = showSearchResults(request.tag, result.items.length);
+		console.log(result);
+		console.log(result.items.length);
 
 		$('.search-results').html(result);
 
