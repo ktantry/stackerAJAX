@@ -49,6 +49,10 @@ var showQuestion = function(question) {
  							'<p>Reputation: ' + question.owner.reputation + '</p>'
 	);
 
+	return result;
+};
+
+var showAnswerers = function(tags) {
 	var answerer = result.find('.answerer');
 	answerer.html('<p>Name: <a target="_blank" href=http://stackoverflow.com/users/' + tags.user.user_id + ' >' +
 													tags.user.display_name +
@@ -59,6 +63,7 @@ var showQuestion = function(question) {
 
 	return result;
 };
+
 
 
 // this function takes the results object from StackOverflow
@@ -126,10 +131,6 @@ var getTopAnswerers = function(topanswered_tags) {
 		type: "GET",
 		})
 
-
-
-
-
 	.done(function(result){
 		var searchResults = showSearchResults(request.tag, result.items.length);
 		console.log(result);
@@ -138,7 +139,7 @@ var getTopAnswerers = function(topanswered_tags) {
 		$('.search-results').html(result);
 
 		$.each(result.items, function(i, item) {
-			var question = showQuestion(item);
+			var question = showAnswerers(item);
 			$('.search-results').append(question);
 		});
 	})
