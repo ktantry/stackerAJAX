@@ -49,6 +49,14 @@ var showQuestion = function(question) {
  							'<p>Reputation: ' + question.owner.reputation + '</p>'
 	);
 
+	var answerer = result.find('.answerer');
+	answerer.html('<p>Name: <a target="_blank" href=http://stackoverflow.com/users/' + tags.user.user_id + ' >' +
+													tags.user.display_name +
+												'</a>' +
+							'</p>' +
+ 							'<p>Reputation: ' + tags.user.reputation + '</p>'
+	);
+
 	return result;
 };
 
@@ -87,7 +95,7 @@ var getUnanswered = function(tags) {
 
 	.done(function(result){
 		var searchResults = showSearchResults(request.tagged, result.items.length);
-
+		console.log(result);
 		$('.search-results').html(searchResults);
 
 		$.each(result.items, function(i, item) {
@@ -111,7 +119,7 @@ var getTopAnswerers = function(topanswered_tags) {
 
 	console.log(topanswered_tags);
 	
-	var result = $.ajax({show
+	var result = $.ajax({
 		url: "http://api.stackexchange.com/2.2/tags/" + topanswered_tags + "/top-answerers/all_time",
 		data: request,
 		dataType: "jsonp",
@@ -129,7 +137,7 @@ var getTopAnswerers = function(topanswered_tags) {
 
 		$('.search-results').html(result);
 
-		$.each(results.items, function(i, item) {
+		$.each(result.items, function(i, item) {
 			var question = showQuestion(item);
 			$('.search-results').append(question);
 		});
