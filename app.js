@@ -111,7 +111,7 @@ var getTopAnswerers = function(topanswered_tags) {
 
 	console.log(topanswered_tags);
 	
-	var result = $.ajax({
+	var result = $.ajax({show
 		url: "http://api.stackexchange.com/2.2/tags/" + topanswered_tags + "/top-answerers/all_time",
 		data: request,
 		dataType: "jsonp",
@@ -129,7 +129,7 @@ var getTopAnswerers = function(topanswered_tags) {
 
 		$('.search-results').html(result);
 
-		$.each(searchResults.items, function(i, item) {
+		$.each(results.items, function(i, item) {
 			var question = showQuestion(item);
 			$('.search-results').append(question);
 		});
