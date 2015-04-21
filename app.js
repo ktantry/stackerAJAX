@@ -58,16 +58,16 @@ var showAnswerers = function(tags) {
 	var result = $('.templates .answerer').clone();
 
 	var accept_rate = result.find('.accept_rate');
-	accept_rate.text(tags.accept_rate);
+	accept_rate.text(tags.user.accept_rate);
 
 	var display_name = result.find('.display_name');
-	display_name.text(tags.display_name);
+	display_name.text(tags.user.display_name);
 
 	var link_name = result.find('.link');
-	link_name.text(tags.link);
+	link_name.text(tags.user.link);
 
 	var reputation_name = result.find('.reputation');
-	reputation_name.text(tags.reputation);
+	reputation_name.text(tags.user.reputation);
 	
 	var answerer = result.find('.answerer');
 	answerer.html('<p>Name: <a target="_blank" href=http://stackoverflow.com/users/' + tags.user.user_id + ' >' +
