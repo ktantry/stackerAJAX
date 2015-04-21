@@ -64,10 +64,10 @@ var showAnswerers = function(tags) {
 	display_name.text(tags.display_name);
 
 	var link_name = result.find('.link');
-	link.text(tags.link);
+	link_name.text(tags.link);
 
 	var reputation_name = result.find('.reputation');
-	reputation.text(tags.reputation);
+	reputation_name.text(tags.reputation);
 	
 	var answerer = result.find('.answerer');
 	answerer.html('<p>Name: <a target="_blank" href=http://stackoverflow.com/users/' + tags.user.user_id + ' >' +
