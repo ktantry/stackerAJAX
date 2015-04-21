@@ -53,6 +53,22 @@ var showQuestion = function(question) {
 };
 
 var showAnswerers = function(tags) {
+
+	// clone our result template code
+	var result = $('.templates .answerer').clone();
+
+	var accept_rate = result.find('.accept_rate');
+	accept_rate.text(answerer.accept_rate);
+
+	var display_name = result.find('.display_name');
+	display_name.text(answerer.display_name);
+
+	var link_name = result.find('.link');
+	link.text(answerer.link);
+
+	var reputation_name = result.find('.reputation');
+	reputation.text(answerer.reputation);
+	
 	var answerer = result.find('.answerer');
 	answerer.html('<p>Name: <a target="_blank" href=http://stackoverflow.com/users/' + tags.user.user_id + ' >' +
 													tags.user.display_name +
